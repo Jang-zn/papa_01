@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:papa_01/recipe.dart';
+import 'package:papa_01/recipe_detail.dart';
 
 void main() {
   runApp(const MyApp());
@@ -47,7 +48,18 @@ class MyHomePage extends StatelessWidget {
         body: ListView.builder(
             itemCount: recipeList.length,
             itemBuilder: (context, index) {
-              return buildRecipe(recipeList[index]);
+              return GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          //TODO return RecipeDetail();
+                          return const RecipeDetail();
+                        },
+                      ),
+                    );
+                  },
+                  child: buildRecipe(recipeList[index]));
             }));
   }
 
