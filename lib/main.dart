@@ -7,13 +7,14 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -22,17 +23,17 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
-  Recipe recipe = Recipe("label","image path");
+  Recipe recipe = Recipe("label", "image path");
 
   List<Recipe> recipeList = [
-    Recipe("label1","image path1"),
-    Recipe("label2","image path2"),
-    Recipe("label3","image path3"),
-    Recipe("label4","image path4"),
-    Recipe("label5","image path5"),
-    Recipe("label6","image path6"),
-    Recipe("label7","image path7"),
-    Recipe("label8","image path8"),
+    Recipe("label1", "assets/dduk.jpg"),
+    Recipe("label2", "assets/dduk.jpg"),
+    Recipe("label3", "assets/dduk.jpg"),
+    Recipe("label4", "assets/dduk.jpg"),
+    Recipe("label5", "assets/dduk.jpg"),
+    Recipe("label6", "assets/dduk.jpg"),
+    Recipe("label7", "assets/dduk.jpg"),
+    Recipe("label8", "assets/dduk.jpg"),
   ];
 
   final String title;
@@ -40,12 +41,38 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("recipe app"),
-      ),
-      body: ListView.builder(itemBuilder: (context,index){
-        return Text(recipeList[index].label??"default");
-      })
-    );
+        appBar: AppBar(
+          title: Text("recipe app"),
+        ),
+        body: ListView.builder(
+            itemCount: recipeList.length,
+            itemBuilder: (context, index) {
+              return buildRecipe(recipeList[index]);
+            }));
+  }
+
+  Widget buildRecipe(Recipe recipe) {
+    return Card(
+        elevation: 3.0,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Image.asset(recipe.imgUrl!),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                recipe.label!,
+                style: const TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'Palatino'),
+              ),
+            ],
+          ),
+        ));
   }
 }
