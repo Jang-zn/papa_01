@@ -17,33 +17,27 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-  Recipe recipe = Recipe("label", "image path");
-
-  List<Recipe> recipeList = [
-    Recipe("label1", "assets/dduk.jpg"),
-    Recipe("label2", "assets/dduk.jpg"),
-    Recipe("label3", "assets/dduk.jpg"),
-    Recipe("label4", "assets/dduk.jpg"),
-    Recipe("label5", "assets/dduk.jpg"),
-    Recipe("label6", "assets/dduk.jpg"),
-    Recipe("label7", "assets/dduk.jpg"),
-    Recipe("label8", "assets/dduk.jpg"),
-  ];
-
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  List<Recipe> recipeList =  recipes;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("recipe app"),
+          title: const Text("recipe app"),
         ),
         body: ListView.builder(
             itemCount: recipeList.length,
@@ -54,7 +48,7 @@ class MyHomePage extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (context) {
                           //TODO return RecipeDetail();
-                          return const RecipeDetail();
+                          return RecipeDetail(recipe: recipeList[index],);
                         },
                       ),
                     );
@@ -72,12 +66,12 @@ class MyHomePage extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              Image.asset(recipe.imgUrl!),
+              Image.asset(recipe.imgUrl),
               const SizedBox(
                 height: 10,
               ),
               Text(
-                recipe.label!,
+                recipe.label,
                 style: const TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.w700,
